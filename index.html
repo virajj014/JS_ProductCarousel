@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        width: 100%;
+    }
+
+    .product-carousel-out {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        /* background-color: aqua; */
+        align-items: center;
+    }
+
+    .product-carousel {
+        display: flex;
+        width: 100%;
+        overflow-x: scroll;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .product-carousel::-webkit-scrollbar {
+        display: none;
+    }
+
+    .product-carousel__item {
+        min-width: 300px;
+        min-height: 300px;
+        background-color: #fff;
+        margin: 10px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #000;
+        border-radius: 10px;
+    }
+
+    .product-carousel__item img {
+        width: 100%;
+        /* height: 100%; */
+        /* object-fit: cover; */
+        border-radius: 10px;
+    }
+
+    .btnout {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        border: 1px solid #000;
+        border-radius: 50%;
+        cursor: pointer;
+        position: absolute;
+    }
+
+    .btnout:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+    .btn {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    #prevbtn {
+        left: 0;
+    }
+
+    #nextbtn {
+        right: 0;
+    }
+</style>
+
+<body>
+    <h1>My Carousel</h1>
+    <div class="product-carousel-out">
+        <div class="btnout" id="prevbtn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+               onclick="prevFunction()"
+                stroke="currentColor" class="w-6 h-6 btn">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+            </svg>
+        </div>
+        <div class="product-carousel">
+            <!-- <div class="product-carousel__item">
+                <img src="https://picsum.photos/300/300" alt="">
+                <h3>Product 1</h3>
+                <p>Price: 100</p>
+            </div> -->
+            
+        </div>
+        <div class="btnout" id="nextbtn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                onclick="nextFunction()"
+                stroke="currentColor" class="w-6 h-6 btn">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+            </svg>
+        </div>
+    </div>
+</body>
+
+
+<script>
+    const products = [
+        {
+            id: 1,
+            name: "Product 1",
+            price: 100,
+            image: "https://picsum.photos/300/300"
+        },
+        {
+            id: 2,
+            name: "Product 2",
+            price: 200,
+            image: "https://picsum.photos/300/300"
+        },
+        {
+            id: 3,
+            name: "Product 3",
+            price: 300,
+            image: "https://picsum.photos/300/300"
+        },
+        {
+            id: 4,
+            name: "Product 4",
+            price: 400,
+            image: "https://picsum.photos/300/300"
+        },
+        {
+            id: 5,
+            name: "Product 5",
+            price: 500,
+            image: "https://picsum.photos/300/300"
+        },
+        {
+            id: 6,
+            name: "Product 6",
+            price: 600,
+            image: "https://picsum.photos/300/300"
+        },
+        {
+            id: 7,
+            name: "Product 7",
+            price: 700,
+            image: "https://picsum.photos/300/300"
+        },
+        {
+            id: 8,
+            name: "Product 8",
+            price: 800,
+            image: "https://picsum.photos/300/300"
+        },
+        {
+            id: 9,
+            name: "Product 9",
+            price: 900,
+            image: "https://picsum.photos/300/300"
+        },
+        {
+            id: 10,
+            name: "Product 10",
+            price: 1000,
+            image: "https://picsum.photos/300/300"
+        }
+    ]
+
+    const productCarousel = document.querySelector(".product-carousel");
+    const showProducts = () => {
+        let output = "";
+        products.forEach(({id, name, price, image}) => {
+            output += `
+                <div class="product-carousel__item">
+                    <img src="${image}" alt="">
+                    <h3>${name}</h3>
+                    <p>Price: ${price}</p>
+                </div>
+            `;
+        });
+        productCarousel.innerHTML = output;
+    }
+
+    showProducts();
+
+  
+    const productCarouselItem = document.querySelector(".product-carousel__item");
+    const allProductCarouselItem = document.querySelectorAll(".product-carousel__item");
+    const prevBtn = document.querySelector("#prevbtn");
+    const nextBtn = document.querySelector("#nextbtn");
+
+    // width of product carousel
+    const productCarouselWidth = productCarousel.offsetWidth;
+    // console.log(productCarouselWidth);  screen size
+
+    // width of product carousel item
+    const productCarouselItemWidth = productCarouselItem.offsetWidth;
+    // console.log(productCarouselItemWidth);
+    
+    
+    // total number of product carousel item
+    const totalProductCarouselItem = allProductCarouselItem.length;
+    // console.log(totalProductCarouselItem);
+
+    // total width of product carousel
+    const totalProductCarouselWidth = productCarouselItemWidth * totalProductCarouselItem;
+    // console.log(totalProductCarouselWidth);
+
+    const nextFunction = () => {
+        productCarousel.scrollLeft += productCarouselItemWidth;
+    }
+
+    const prevFunction = () => {
+        productCarousel.scrollLeft -= productCarouselItemWidth;
+    }
+
+    // const autoscroller = () => {
+    //     productCarousel.scrollLeft += productCarouselItemWidth;
+    // }
+
+    // setInterval(autoscroller, 2000);
+
+
+
+    // show products
+
+</script>
+
+</html>
